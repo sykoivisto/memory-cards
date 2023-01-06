@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Card = (imgSrc, title, id, onUserClickCard) => {
+const Card = (props) => {
   return (
-    <div onClick={() => onUserClickCard(id)}>
-      <img src={imgSrc} alt={title} />
-      <p>{title}</p>
+    <div onClick={() => props.onUserClickCard(props.id)}>
+      <img src={props.imgSrc} alt={props.name} />
+      <p>{props.name}</p>
     </div>
   )
 }
