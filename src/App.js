@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Card from './components/card';
 import Scoreboard from './components/scoreboard';
+import Gameover from './components/gameover';
 
 function App() {
   // App is used as the game controller. App contains an array of cards which can be shuffled and rendered as many times as the user wants.
@@ -80,6 +81,12 @@ function App() {
 
   const [score, setScore] = useState(0);
 
+  const [bestScore, setBestScore] = useState(0);
+
+  const [showGameOver, setShowGameOver] = useState(false);
+
+  const [gameWin, setGameWin] = useState(false);
+
   // Durstenfeld
   const shuffleArray = (orig) => {
     let array = orig.slice(0);
@@ -94,59 +101,70 @@ function App() {
 
   const onRestartGame = () => {
     // do some cleanup
+    // get rid of the game over screen
+    setShowGameOver(false);
+    // reset game win status
+    setGameWin(false);
     // reset the score
     setScore(0);
     // reset clickedCards
     setClickedCards([]);
   };
 
-  // do stuff that should happen when the game is over
-  // success true: all cards clicked successfully
-  // false: user clicked a card twice
-  const onGameOver = (success) => {
-    // display our game over screen.
-    // add a button to restart game that
-    // destroys the game over scren and calls onRestartGame();
-  };
-
-  // the user clicking the card should set off a chain of events
-  // 1 - check if the game is over by having clicked every card once
-  // 2 - we need to determine if the card has been clicked before so we can eithe either end the game, or log the new score
-  // 3 - reshuffle the cards, and if the game is over- show an end game screen
   const onUserClickCard = (id) => {
     // reshuffle the cards.
     setCharacters(shuffleArray(characters));
 
-    // check if the game is over by having clicked all the cards once
-    if (clickedCards.length >= characters.length) {
-      onGameOver(true); // we won the gane
-      return;
-    }
-
     // check if the card has been clicked before
     if (clickedCards.includes(id)) {
-      onGameOver(false); // we lost the game
+      setShowGameOver(true); // we lost the game
       return;
     }
 
-    // if we have not won or lost our game, log the new score and continue
+    // if we have not lost our game, log the new score and continue
     setScore(score + 1);
 
     // add the card to the list of clicked cards
     setClickedCards(clickedCards.concat([id]))
   };
 
+  useEffect(() => {
+    // check if the game is over by having clicked all the cards once
+    if (clickedCards.length >= characters.length) {
+      // we won the game so update status
+      setGameWin(true);
+      setShowGameOver(true);
+      return;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickedCards])
+
+  useEffect(() => {
+    const updateBestScore = (score) => {
+      if (score > bestScore) setBestScore(score);
+    };
+    updateBestScore(score);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [score])
+
   return (
     <div>
-      <Scoreboard score={score}></Scoreboard>
-      {characters.map((character) => {
-        return (<Card
-          id={character.id}
-          imgSrc={character.imgSrc}
-          name={character.name}
-          onUserClickCard={onUserClickCard}
-        ></Card>);
-      })}
+      {showGameOver ? (
+        <Gameover win={gameWin} onRestartGame={onRestartGame} score={score}></Gameover>
+      ) : (
+        <div>
+          <Scoreboard score={score} bestScore={bestScore}></Scoreboard>
+          {characters.map((character) => {
+            return (<Card
+              key={character.id}
+              id={character.id}
+              imgSrc={character.imgSrc}
+              name={character.name}
+              onUserClickCard={onUserClickCard}
+            ></Card>);
+          })}
+        </div>
+      )}
     </div>
   );
 }

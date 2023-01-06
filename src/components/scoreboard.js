@@ -1,16 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const Scoreboard = (props) => {
-
-  const [bestScore, setBestScore] = useState(0);
-
-  useEffect(() => {
-    const updateBestScore = (score) => {
-      if (score > bestScore) setBestScore(score);
-    };
-    updateBestScore(props.score);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.score])
 
   return (
     <div>
@@ -20,7 +10,7 @@ const Scoreboard = (props) => {
       </div>
       <div>
         <p>Best Score:</p>
-        <p>{bestScore}</p>
+        <p>{props.bestScore}</p>
       </div>
     </div>
   )
