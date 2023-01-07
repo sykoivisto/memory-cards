@@ -6,7 +6,7 @@ const Gameover = (props) => {
   //props.score is the score
 
   return (
-    <div>
+    <div className='gameover'>
       {props.win ? <p>You won the Game!</p> : <p>Your score was {props.score}. Better luck next time!</p>}
       <button onClick={props.onRestartGame}>Play Again</button>
     </div>

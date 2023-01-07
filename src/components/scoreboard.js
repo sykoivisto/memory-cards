@@ -3,15 +3,9 @@ import React from "react";
 const Scoreboard = (props) => {
 
   return (
-    <div>
-      <div>
-        <p>Current Score:</p>
-        <p>{props.score}</p>
-      </div>
-      <div>
-        <p>Best Score:</p>
-        <p>{props.bestScore}</p>
-      </div>
+    <div className='scoreboard'>
+        <p>Current Score: {props.score}</p>
+        <p>Best Score: {props.bestScore}</p>
     </div>
   )
 }
