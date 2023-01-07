@@ -4,75 +4,73 @@ import Card from './components/card';
 import Scoreboard from './components/scoreboard';
 import Gameover from './components/gameover';
 
-function App() {
-  // App is used as the game controller. App contains an array of cards which can be shuffled and rendered as many times as the user wants.
-  // App controls the flow of the game.
-  // There should be a function that displays the cards in a random order anytime a user clicks one
+import './app.css'
 
+function App() {
   const [characters, setCharacters] = useState([
     {
       name: 'THE COLLECTOR',
-      imgSrc: '',
+      imgSrc: './img/collector.jpg',
       id: 1,
     },
     {
       name: 'DOCTOR ERIK SELVIG',
-      imgSrc: '',
+      imgSrc: './img/selvig.jpg',
       id: 2,
     },
     {
       name: 'DOCTOR STRANGE',
-      imgSrc: '',
+      imgSrc: './img/strange.jpg',
       id: 3,
     },
     {
       name: 'SKURGE',
-      imgSrc: '',
+      imgSrc: './img/skurge.jpg',
       id: 4,
     },
     {
       name: 'GRANDMASTER',
-      imgSrc: '',
+      imgSrc: './img/grandmaster.jpg',
       id: 5,
     },
     {
       name: 'HAWKEYE',
-      imgSrc: '',
+      imgSrc: './img/hawkeye.jpg',
       id: 6,
     },
     {
       name: 'HEIMDALL',
-      imgSrc: '',
+      imgSrc: './img/heimdall.jpg',
       id: 7,
     },
     {
       name: 'HELA',
-      imgSrc: '',
+      imgSrc: './img/hela.jpg',
       id: 8,
     },
     {
       name: 'HULK',
-      imgSrc: '',
+      imgSrc: './img/hulk.jpg',
       id: 9,
     },
     {
       name: 'LOKI',
-      imgSrc: '',
+      imgSrc: './img/loki.jpg',
       id: 10,
     },
     {
       name: 'ODIN',
-      imgSrc: '',
+      imgSrc: './img/odin.jpg',
       id: 11,
     },
     {
       name: 'THOR',
-      imgSrc: '',
+      imgSrc: './img/thor.jpg',
       id: 12,
     },
     {
       name: 'VALKYRIE',
-      imgSrc: '',
+      imgSrc: './img/valkyrie.jpg',
       id: 13,
     },
   ]);
@@ -154,15 +152,17 @@ function App() {
       ) : (
         <div>
           <Scoreboard score={score} bestScore={bestScore}></Scoreboard>
-          {characters.map((character) => {
-            return (<Card
-              key={character.id}
-              id={character.id}
-              imgSrc={character.imgSrc}
-              name={character.name}
-              onUserClickCard={onUserClickCard}
-            ></Card>);
-          })}
+          <div className='cardsContainer'>
+            {characters.map((character) => {
+              return (<Card
+                key={character.id}
+                id={character.id}
+                imgSrc={character.imgSrc}
+                name={character.name}
+                onUserClickCard={onUserClickCard}
+              ></Card>);
+            })}
+          </div>
         </div>
       )}
     </div>

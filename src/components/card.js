@@ -2,9 +2,13 @@ import React from 'react'
 
 const Card = (props) => {
   return (
-    <div onClick={() => props.onUserClickCard(props.id)}>
-      <img src={props.imgSrc} alt={props.name} />
-      <p>{props.name}</p>
+    <div className='card' onClick={() => props.onUserClickCard(props.id)}>
+      <div className='imgWrapper'>
+        <img src={props.imgSrc} alt={props.name} />
+      </div>
+      <div className='nameWrapper'>
+        <p>{props.name}</p>
+      </div>
     </div>
   )
 }
