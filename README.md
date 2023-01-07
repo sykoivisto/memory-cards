@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a pretty simple memory card game. The goal is pretty simple: click cards, and remember which ones you've clicked! Click every card exactly once! Click all the cards, and you win! Click a single card twice, and it's game over.
+This is a memory card game. The goal is pretty simple: click cards, and remember which ones you've clicked! Click every card exactly once! Click all the cards, and you win! Click a single card twice, and it's game over.
 
 ![screenshot](./screenshot.png)
 
